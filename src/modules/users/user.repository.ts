@@ -16,7 +16,7 @@ export class UserRepository {
   async findByUserName(userName: string): Promise<Users | null>{
     return this.repository.findOne({
       where: {
-        user_name: userName
+        userName: userName
       }
     });
   }

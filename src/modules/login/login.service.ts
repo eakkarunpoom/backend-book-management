@@ -22,7 +22,7 @@ export class LoginService {
       throw new ConflictException('Username or Password incorrect');
     }
     const payload = {
-      userName: findUser.user_name
+      userName: findUser.userName
     }
     const accessToken = this.jwtService.sign(payload);
     return {

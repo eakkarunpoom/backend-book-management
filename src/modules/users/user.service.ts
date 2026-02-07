@@ -17,7 +17,7 @@ export class UserService {
       }
       const bcryptedPassword = await this.hashPassword(body.password);
       const user = new Users();
-      user.user_name = body.userName;
+      user.userName = body.userName;
       user.password = bcryptedPassword;
       return this.userRepository.save(user);
     } catch (error) {

@@ -5,6 +5,8 @@ import { LoginController } from "./login.controller";
 import { LoginService } from "./login.service";
 import { UserRepository } from "../users/user.repository";
 import { JwtModule } from "@nestjs/jwt";
+import { JwtStrategy } from "./jwt.strategy";
+import { PassportModule } from "@nestjs/passport";
 
 @Module({
   imports: [
@@ -13,9 +15,10 @@ import { JwtModule } from "@nestjs/jwt";
       secret: 'mySecretKey', //env
       signOptions: { expiresIn: '1h' },
     }),
+    PassportModule,
   ],
   controllers: [LoginController],
-  providers: [LoginService, UserRepository]
+  providers: [LoginService, UserRepository, JwtStrategy]
 })
 
 export class LoginModule { }

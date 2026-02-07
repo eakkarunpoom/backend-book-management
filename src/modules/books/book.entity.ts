@@ -1,20 +1,25 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Users {
+export class Books {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({
     nullable: false,
-    name: 'user_name'
   })
-  userName: string;
+  title: string;
 
   @Column({
     nullable: false,
   })
-  password: string;
+  author: string;
+
+  @Column({ name: 'published_year' })
+  publishedYear: number;
+
+  @Column()
+  genre: string;
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;

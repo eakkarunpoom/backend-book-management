@@ -11,13 +11,13 @@ export class UserService {
   ) {}
   async createUser(body: CreateUserDto) {
     try {
-      const user = new Users();
-      user.user_name = body.userName;
       const findUserExist = await this.userRepository.findByUserName(body.userName);
       if (findUserExist) {
         throw new ConflictException('Username already exists');
       }
       const bcryptedPassword = await this.hashPassword(body.password);
+      const user = new Users();
+      user.user_name = body.userName;
       user.password = bcryptedPassword;
       return this.userRepository.save(user);
     } catch (error) {

@@ -1,10 +1,10 @@
 import { Controller, Post } from "@nestjs/common";
 
-@Controller()
+@Controller('book')
 export class BookController {
   constructor(){}
 
-  @Post('/book/create')
+  @Post('create')
   createBook(){
     return "Create Book";
   }

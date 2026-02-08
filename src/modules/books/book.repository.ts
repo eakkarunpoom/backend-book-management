@@ -7,16 +7,24 @@ import { Repository } from "typeorm";
 export class BookRepository {
   constructor(
     @InjectRepository(Books) private readonly repository: Repository<Books>,
-  ) {}
-  async create(book: Books): Promise<Books>{
+  ) { }
+  
+  async create(book: Books): Promise<Books> {
     return this.repository.save(book);
   }
 
-  async getAll(): Promise<Books[]>{
+  async getAll(): Promise<Books[]> {
     return this.repository.find();
   }
 
-  async getBook(id: number): Promise<Books|null>{
+  async getPage(skip: number, take: number) {
+    return this.repository.findAndCount({
+      skip,
+      take
+    });
+  }
+
+  async getBook(id: number): Promise<Books | null> {
     return this.repository.findOne({
       where: {
         id
@@ -24,11 +32,11 @@ export class BookRepository {
     });
   }
 
-  async update(id: number, book: Partial<Books>){
+  async update(id: number, book: Partial<Books>) {
     return this.repository.update(id, book);
   }
 
-  async delete(id: number){
+  async delete(id: number) {
     return this.repository.delete(id);
   }
 }

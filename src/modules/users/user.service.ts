@@ -11,6 +11,7 @@ export class UserService {
   ) {}
   async createUser(body: CreateUserDto) {
     try {
+      console.log('body ===', body)
       const findUserExist = await this.userRepository.findByUserName(body.userName);
       if (findUserExist) {
         throw new ConflictException('Username already exists');

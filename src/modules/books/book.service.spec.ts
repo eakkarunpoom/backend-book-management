@@ -1,5 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { BookController } from './book.controller';
 import { BookService } from './book.service';
 import { BookDto } from './book.dto';
 import { BookRepository } from './book.repository';
@@ -27,15 +26,15 @@ describe('BookService', () => {
     repository = module.get<BookRepository>(BookRepository);
   });
 
-it('should create book', async () => {
-  const dto = {
-    title: 'Golang',
-    author: 'admin',
-    publishedYear: 2026,
-    genre: 'Programming',
-  };
+  it('should create book', async () => {
+    const dto = {
+      title: 'Golang',
+      author: 'admin',
+      publishedYear: 2026,
+      genre: 'Programming',
+    };
 
-  await service.createBook(dto as BookDto);
-  expect(mockBookRepository.create).toHaveBeenCalledWith(dto);
+    await service.createBook(dto as BookDto);
+    expect(mockBookRepository.create).toHaveBeenCalledWith(dto);
   });
 });

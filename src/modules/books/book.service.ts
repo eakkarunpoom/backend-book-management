@@ -7,8 +7,8 @@ import { Books } from "./book.entity";
 export class BookService {
   constructor(
     private readonly bookRepository: BookRepository
-  ) {}
-  async createBook(request: BookDto){
+  ) { }
+  async createBook(request: BookDto) {
     try {
       const books = new Books();
       books.title = request.title;
@@ -22,7 +22,7 @@ export class BookService {
     }
   }
 
-  async getBook(){
+  async getBook() {
     try {
       const findAllBook = await this.bookRepository.getAll()
       return findAllBook
@@ -31,7 +31,25 @@ export class BookService {
     }
   }
 
-  async update(request: Partial<BookDto>, id: number){
+  async getBookPage(page: number, limit: number) {
+    try {
+      const skip = (page - 1) * limit;
+      const [data, total] = await this.bookRepository.getPage(skip, limit)
+      return {
+        data,
+        row: {
+          total,
+          page,
+          limit,
+          totalPage: Math.ceil(total / limit)
+        }
+      }
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async update(request: Partial<BookDto>, id: number) {
     try {
       await this.bookRepository.update(id, request)
       const findBook = await this.bookRepository.getBook(id)
@@ -41,13 +59,13 @@ export class BookService {
     }
   }
 
-  async deleteBook(id: number){
+  async deleteBook(id: number) {
     try {
       await this.bookRepository.delete(id)
       const findBook = await this.bookRepository.getBook(id)
-      if(!findBook){
+      if (!findBook) {
         return {
-          data : {
+          data: {
             message: `Delete Book Success`
           }
         }

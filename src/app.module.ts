@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './modules/users/user.module';
 import { LoginModule } from './modules/login/login.module';
 import { BookModule } from './modules/books/book.module';
+import { LoggerModule } from 'nestjs-pino';
 
 @Module({
   imports: [
@@ -15,6 +16,13 @@ import { BookModule } from './modules/books/book.module';
       database: 'book-management', //env
       autoLoadEntities: true,
       synchronize: true,
+    }),
+    LoggerModule.forRoot({
+      pinoHttp: {
+        transport: {
+          target: 'pino-pretty',
+        },
+      },
     }),
     UserModule,
     LoginModule,

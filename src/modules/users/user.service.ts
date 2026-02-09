@@ -3,15 +3,16 @@ import { CreateUserDto } from "src/modules/users/user.dto";
 import { Users } from "src/modules/users/user.entity";
 import { UserRepository } from "src/modules/users/user.repository";
 import * as bcrypt from 'bcryptjs';
+import { PinoLogger } from "nestjs-pino";
 
 @Injectable()
 export class UserService {
   constructor(
-    private readonly userRepository: UserRepository
+    private readonly userRepository: UserRepository,
+    private readonly logger: PinoLogger
   ) {}
   async createUser(body: CreateUserDto) {
     try {
-      console.log('body ===', body)
       const findUserExist = await this.userRepository.findByUserName(body.userName);
       if (findUserExist) {
         throw new ConflictException('Username already exists');

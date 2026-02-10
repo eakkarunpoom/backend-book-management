@@ -74,7 +74,7 @@ describe('LoginService', () => {
 
     await expect(service.login(dto))
       .rejects
-      .toThrow();
+      .toThrow('Username or Password incorrect');
     
     expect(mockUserRepository.findByUserName)
       .toHaveBeenCalledWith(dto.userName);
@@ -93,7 +93,7 @@ describe('LoginService', () => {
 
     await expect(service.login(dto))
       .rejects
-      .toThrow();
+      .toThrow('Username or Password incorrect');
     
     expect(mockUserRepository.findByUserName)
       .toHaveBeenCalledWith(dto.userName);

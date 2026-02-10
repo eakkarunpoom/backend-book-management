@@ -1,7 +1,7 @@
 import { ConflictException, Injectable } from "@nestjs/common";
-import { CreateUserDto } from "src/modules/users/user.dto";
-import { Users } from "src/modules/users/user.entity";
-import { UserRepository } from "src/modules/users/user.repository";
+import { CreateUserDto } from "../../modules/users/user.dto";
+import { Users } from "../../modules/users/user.entity";
+import { UserRepository } from "../../modules/users/user.repository";
 import * as bcrypt from 'bcryptjs';
 import { PinoLogger } from "nestjs-pino";
 

@@ -59,4 +59,20 @@ describe('UserService', () => {
       .toHaveBeenCalled();
   });
 
+  it('should not create user username exists', async () => {
+    const dto = {
+      userName: 'test',
+      password: 'test',
+    };
+
+    mockUserRepository.findByUserName.mockResolvedValue(true);
+
+    await expect(
+      service.createUser(dto as any)
+    ).rejects.toThrow('Username already exists');
+
+    expect(mockUserRepository.findByUserName)
+      .toHaveBeenCalledWith(dto.userName);
+  });
+
 });

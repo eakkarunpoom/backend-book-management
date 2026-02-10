@@ -8,7 +8,6 @@ import { UserDto } from './login.dto';
 describe('LoginService', () => {
   let service: LoginService;
   let repository: UserRepository;
-  let jwt: JwtService
 
   const mockUserRepository = {
     save: jest.fn(),
@@ -61,6 +60,41 @@ describe('LoginService', () => {
 
     await service.login(dto as UserDto);
 
+    expect(mockUserRepository.findByUserName)
+      .toHaveBeenCalledWith(dto.userName);
+  });
+
+  it('should not found user', async () => {
+    const dto = {
+      userName: 'test',
+      password: 'test',
+    };
+
+    mockUserRepository.findByUserName.mockResolvedValue(null);
+
+    await expect(service.login(dto))
+      .rejects
+      .toThrow();
+    
+    expect(mockUserRepository.findByUserName)
+      .toHaveBeenCalledWith(dto.userName);
+  });
+
+
+  it('should password not match', async () => {
+    const dto = {
+      userName: 'test',
+      password: 'test',
+    };
+
+    mockUserRepository.findByUserName.mockResolvedValue(null);
+
+    jest.spyOn(service, 'comparePassword').mockResolvedValue(false);
+
+    await expect(service.login(dto))
+      .rejects
+      .toThrow();
+    
     expect(mockUserRepository.findByUserName)
       .toHaveBeenCalledWith(dto.userName);
   });

@@ -10,7 +10,7 @@ export class BookService {
     private readonly bookRepository: BookRepository,
     private readonly logger: PinoLogger
   ) { }
-  async createBook(request: BookDto) {
+  async createBook(request: BookDto, userName: string) {
     try {
       this.logger.info({message: 'request creating book', request});
       const books = new Books();
@@ -18,6 +18,7 @@ export class BookService {
       books.author = request.author;
       books.publishedYear = request.publishedYear;
       books.genre = request.genre;
+      books.create_by = userName;
       const create = await this.bookRepository.create(books);
       this.logger.info({message: 'response creating book', create});
       return create;

@@ -2,6 +2,7 @@ import { Request, Controller, Post, UseGuards, Body, Get, Param, Put, Patch, Del
 import { JwtAuthGuard } from "../login/jwt.guard";
 import { BookDto } from "./book.dto";
 import { BookService } from "./book.service";
+import { GetUser } from "../../utils/get-user.utils";
 
 @Controller('book')
 export class BookController {
@@ -12,9 +13,10 @@ export class BookController {
   @UseGuards(JwtAuthGuard)
   @Post('create')
   createBook(
-    @Body() req: BookDto
+    @Body() req: BookDto,
+    @GetUser('userName') userName: string
   ) {
-    return this.bookService.createBook(req);
+    return this.bookService.createBook(req, userName);
   }
 
   @UseGuards(JwtAuthGuard)

@@ -6,12 +6,16 @@ export class Users {
   id: number;
 
   @Column({
+    type: 'varchar',
+    length: 255,
     nullable: false,
     name: 'user_name'
   })
   userName: string;
 
   @Column({
+    type: 'varchar',
+    length: 255,
     nullable: false,
   })
   password: string;

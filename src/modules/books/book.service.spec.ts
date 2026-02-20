@@ -48,8 +48,8 @@ describe('BookService', () => {
       publishedYear: 2026,
       genre: 'Programming',
     };
-
-    await service.createBook(dto as BookDto);
+    const userName = 'admin';
+    await service.createBook(dto as BookDto, userName as string);
     expect(mockBookRepository.create).toHaveBeenCalledWith(
       expect.objectContaining(dto)
     );

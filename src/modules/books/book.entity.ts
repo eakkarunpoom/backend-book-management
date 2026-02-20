@@ -6,11 +6,15 @@ export class Books {
   id: number;
 
   @Column({
+    type: 'varchar',
+    length: 255,
     nullable: false,
   })
   title: string;
 
   @Column({
+    type: 'varchar',
+    length: 255,
     nullable: false,
   })
   author: string;
@@ -18,8 +22,18 @@ export class Books {
   @Column({ name: 'published_year' })
   publishedYear: number;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+    length: 100,
+  })
   genre: string;
+
+  @Column({
+    type: 'varchar',
+    length: 255,
+    nullable: false,
+  })
+  create_by: string
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
